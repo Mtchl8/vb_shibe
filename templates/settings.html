@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Настройки</title>
+    <title>Настройки бота</title>
 </head>
 <body>
     <form method="post" action="/accept">
-        Введите значение параметров<br>
-        Время напоминания в секундах:<br>
+        Параметры:<br>
+        Время напоминания(сек):<br>
         <input type="number" name="remind_time" value={{remind_time}}><br>
-        Количество вопросов в одном тесте:<br>
+        Количество вопросов за тест:<br>
         <input type="number" name="count_words" value={{count_words}}><br>
-        Количество правильных ответов, чтобы слово было выучено:<br>
+        При каком количестве ответов слово будет считаться заученным:<br>
         <input type="number" name="count_to_learn" value={{count_to_learn}}><br>
         <input type="submit" value="Сохранить">
     </form>
