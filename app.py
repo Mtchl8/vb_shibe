@@ -111,11 +111,10 @@ def send_question(viber_id):
         select_query2 = session.query(Learning.word).filter(Learning.user_id == select_query[2]).filter(
             Learning.right_answer >= settings[1]).count()
         session.close()
-        return TextMessage(text=f'У вас {temp_correct_answers} верных из {settings[0]}. '
+        return TextMessage(text=f'Ваш результат: {temp_correct_answers} верных из {settings[0]}. '
                                 f'Выучено: {select_query2} слов. '
                                 f'Осталось выучить {50 - select_query2} слов. '
-                                f'Время прохождения теста: {str(select_query[3])[:16]}. '
-                                f'Хотите ещё раз попробовать?',
+                                f'Попробуем снова?',
                            keyboard=KEYBOARD1, tracking_data='tracking_data')
     else:
         temp_answers = []
