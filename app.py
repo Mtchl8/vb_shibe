@@ -154,12 +154,12 @@ def send_question(viber_id):
                              'answer': f"{temp_answers[i]}"}
             KEYBOARD2['Buttons'][i]['Text'] = f'{temp_answers[i]}'
             KEYBOARD2['Buttons'][i]['ActionBody'] = f'{temp_question}'
-        return TextMessage(text=f'{select_query[0] + 1}.Как переводится слово {question["word"]}',
+        return TextMessage(text=f'{select_query[0] + 1}.Выберите верный перевод слова {question["word"]}',
                            keyboard=KEYBOARD2, tracking_data='tracking_data')
 
 
 def check_answer(viber_id, user_answer):
-    check = 'Неверно'
+    check = 'К сожалению, ответ не верный'
     session = Session()
     select_query = session.query(Users.question, Users.user_id, Users.all_answers).filter(Users.viber_id == viber_id).one()
     session.close()
@@ -191,7 +191,7 @@ def check_answer(viber_id, user_answer):
         select_query2 = session.query(Learning.right_answer).filter(Learning.word == question['word']).filter(
             Learning.user_id == select_query[1]).one()
         session.close()
-        check = f'Верно. Количество правильных ответов: {select_query2[0]}'
+        check = f'Правильно! У вас уже {select_query2[0]} правильных ответов!'
     return TextMessage(text=check, keyboard=KEYBOARD2, tracking_data='tracking_data')
 
 
@@ -210,7 +210,7 @@ def update_time(viber_id):
     update_query.dt_last_answer = datetime.utcnow()
     session.commit()
     session.close()
-    return TextMessage(text='Хорошо, напомню тебе чуть позже!')
+    return TextMessage(text='Оки-доки, напомню тебе чуть позже!')
 
 
 def get_question_number(viber_id):
@@ -272,8 +272,8 @@ KEYBOARD1 = {
             "Columns": 6,
             "Rows": 1,
             "BgColor": "#e6f5ff",
-            "ActionBody": "Поехали!",
-            "Text": "Поехали!"
+            "ActionBody": "СТАРТ",
+            "Text": "СТАРТ"
         }
     ]
 }
@@ -284,27 +284,27 @@ KEYBOARD2 = {
         {
             "Columns": 3,
             "Rows": 1,
-            "BgColor": "#e6f5ff"
+            "BgColor": "#C6FFF9"
         },
         {
             "Columns": 3,
             "Rows": 1,
-            "BgColor": "#e6f5ff"
+            "BgColor": "#C6FFF9"
         },
         {
             "Columns": 3,
             "Rows": 1,
-            "BgColor": "#e6f5ff"
+            "BgColor": "#C6FFF9"
         },
         {
             "Columns": 3,
             "Rows": 1,
-            "BgColor": "#e6f5ff"
+            "BgColor": "#C6FFF9"
         },
         {
             "Columns": 6,
             "Rows": 1,
-            "BgColor": "#e6f5ff",
+            "BgColor": "#FFC6C6",
             "ActionBody": "Показать пример",
             "Text": "Показать пример"
         }
@@ -323,7 +323,7 @@ def incoming():
         new_current_id = viber_request.user.id
         add_user(new_current_id)
         viber.send_messages(viber_request.user.id, [
-            TextMessage(text='Привет! Этот бот предназначен для заучивания английских слов! Нажимай кнопку "Поехали"!',
+            TextMessage(text='Привет! Этот бот предназначен для заучивания английских слов! Нажимай кнопку "СТАРТ"!',
                         keyboard=KEYBOARD1, tracking_data='tracking_data')
         ])
     if isinstance(viber_request, ViberMessageRequest):
@@ -336,7 +336,7 @@ def incoming():
                 text = message.text
                 print(text)
                 # чтение введёного текста
-                if text == "Поехали!":
+                if text == "СТАРТ":
                     bot_response = send_question(current_id)
                     viber.send_messages(current_id, bot_response)
                 elif text == "Показать пример":
