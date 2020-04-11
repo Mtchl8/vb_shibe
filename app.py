@@ -314,8 +314,8 @@ KEYBOARD2 = {
 
 @app.route('/incoming', methods=['POST'])
 def incoming():
-    #Base.metadata.create_all(engine)
-    #add_settings()
+    Base.metadata.create_all(engine)
+    add_settings()
     viber_request = viber.parse_request(request.get_data())
     print(viber_request)
     if isinstance(viber_request, ViberConversationStartedRequest):
