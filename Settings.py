@@ -1,4 +1,4 @@
-TOKEN = "4ad2ccd66d27df8d-3f1002665cdf9a61-7e5198441b4836a6"
-URL = "https://vagabondbot.herokuapp.com"
+TOKEN = "4ac7d72339e7d0b5-f614c0688c0c27e9-a6bb05e7fe56834b"
+URL = "https://vbshibe.herokuapp.com/"
 #URL = "https://5ca74fbf.ngrok.io"
 WEBHOOK = URL+'/incoming'
